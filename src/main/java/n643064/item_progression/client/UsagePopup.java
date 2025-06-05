@@ -1,5 +1,6 @@
 package n643064.item_progression.client;
 
+import n643064.item_progression.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +22,7 @@ public class UsagePopup
         final int center = guiGraphics.guiWidth() / 2;
         final int fourth = guiGraphics.guiHeight() / 4;
 
-        guiGraphics.drawCenteredString(font, "You do not meet the requirements to use this item", center, fourth, 0xFFAAAA);
+        guiGraphics.drawCenteredString(font, Config.CONFIG.requirementsPopupMessage(), center, fourth, 0xFF9090);
         renderTicks--;
     }
 }

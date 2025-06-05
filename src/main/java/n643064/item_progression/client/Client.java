@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +23,6 @@ public class Client implements ClientModInitializer
     public static HashMap<String, Config.CachedSkill> CLIENT_CACHED_SKILLS = new HashMap<>();
     public static HashMap<String, Integer> CLIENT_CACHED_SKILL_MAP = new HashMap<>();
     public static Config.CachedItemMap CLIENT_CACHED_ITEM_MAP = new Config.CachedItemMap();
-
     @Nullable
     public static UsagePopup POPUP = null;
 

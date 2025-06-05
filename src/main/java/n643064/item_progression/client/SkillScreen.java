@@ -5,8 +5,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Tuple;
-import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 
 import static n643064.item_progression.Main.MODID;
@@ -30,6 +28,7 @@ public class SkillScreen extends Screen
     @Override
     protected void init()
     {
+        // TODO: Multiline skill list, window size scaling
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.topPos = (this.height - this.imageHeight) / 2;
         final int l = Client.CLIENT_CACHED_SKILLS.size();

@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Item Progression",
   "description": "Adds a leveling system for restricting the usage of items",
-  "authors": [],
+  "authors": [
+    "n643064"
+  ],
   "contact": {},
   "license": "GPL-3.0",
   "icon": "assets/item_progression/icon.png",
@@ -23,6 +25,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": ">=${minecraft_version}"
   }
 }

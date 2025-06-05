@@ -36,7 +36,6 @@ public class Util
         return checkItemRestricted(Client.CLIENT_CACHED_ITEM_MAP, Client.CLIENT_CACHED_SKILL_MAP, item);
     }
 
-    @Environment(EnvType.SERVER)
     public static boolean serverCheckItemRestricted(ServerPlayer player, Item item)
     {
         if (player.isCreative())

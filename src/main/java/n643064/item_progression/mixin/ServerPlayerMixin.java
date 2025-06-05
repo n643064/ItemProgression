@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.SERVER)
 @Mixin(Player.class)
-public abstract class PlayerMixin
+public abstract class ServerPlayerMixin
 {
     @Shadow public abstract Inventory getInventory();
     @Shadow @NotNull public abstract ItemStack getWeaponItem();

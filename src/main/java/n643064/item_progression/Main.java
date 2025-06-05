@@ -1,8 +1,6 @@
 package n643064.item_progression;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -40,7 +38,6 @@ public class Main implements ModInitializer
         PayloadTypeRegistry.playC2S().register(REQUEST_UPDATE_SKILLS, REQUEST_UPDATE_SKILLS_CODEC);
 
 
-
         ServerPlayerEvents.JOIN.register(serverPlayer ->
         {
             ServerPlayNetworking.send(serverPlayer, new Networking.SyncSkillsPayload(CONFIG.skills()));
@@ -68,8 +65,18 @@ public class Main implements ModInitializer
                 if (!level.isClientSide && blockState.getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(blockState))
                     ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(blockPos), level.random.nextInt(CONFIG.cropXpMin(), CONFIG.cropXpMax()));
             });
-    }
 
+
+        ServerEntityEvents.EQUIPMENT_CHANGE.register(((livingEntity, equipmentSlot, itemStack, itemStack1) ->
+        {
+            if (livingEntity instanceof ServerPlayer player && equipmentSlot.isArmor())
+            {
+                if (Util.serverCheckItemRestricted(player, itemStack1.getItem()))
+                    player.addItem(itemStack1.copyAndClear());
+            }
+
+        }));
+    }
 
     public static int xpDrainFromLevel(int level)
     {
