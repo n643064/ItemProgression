@@ -6,8 +6,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -16,157 +16,99 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import static n643064.item_progression.Main.MODID;
 import static net.minecraft.world.level.Level.OVERWORLD;
 
 public record Config(
-        int infectionDuration,
-        int explosionTime,
-        int pointsLostOnDeath,
-        int pointsPerEntity,
-        int pointsPerPlayer,
-        int pointsPerCreatureSpawn,
-        int pointsTier1,
-        int pointsTier2,
-        int pointsTier3,
-        int evolutionTime,
-        int pointsReducedByDetergent,
-        int nodeSpreadCooldown,
-        int nodeMaxRangeSqr,
-        int nodeMaxSteps,
-        int nodeSpreadCount,
-        double minHealthTier1,
-        double minHealthTier2,
-        double minHealthTier3,
-        double fireDamageMult,
-        double onFireMult,
-        double infectionSpawnChance,
-        double infectChance,
-        double explosionChance,
-        double explosionGrubChance,
-        double onKillSpawnChance,
-        double explosionRadiusHealthDiv,
-        double spawnWeightMultiplier,
-        double maxHardnessForSoftBlock,
-        double maxHardnessForConversion,
-        boolean someSensitiveToWater,
-        boolean avoidIgnitedCreepers,
-        boolean infectionEnabled,
-        boolean mustSee,
-        boolean targetKiller,
-        boolean attackWithoutLOS,
-        boolean scaleExplosionRadius,
-        boolean despawnInPeaceful,
-        boolean rideBoats,
-        boolean infectionSpawnOnFinish,
-        boolean grubsInfestInsteadOfAttacking,
-        boolean creaturesArePersistentByDefault,
-        List<String> infectionBlacklist,
-        List<String> tier1Evolution,
-        List<String> tier2Evolution,
-        List<String> tier3Evolution,
-        List<String> blockConversionBlacklist,
-        int infectionClassDepth
+    List<Skill> skills,
+    double xpDrainLevelExponent,
+    double xpDrainLevelMultiplier,
+    boolean cropsDropExperience,
+    int cropXpMin,
+    int cropXpMax,
+    boolean modifySpawnerExperience,
+    int spawnerXpMin,
+    int spawnerXpMax,
+    int requirementsPopupSeconds,
+    ItemMap itemMap
 )
 {
 
+    public record Skill(String name, String iconItem, int maxLevel) {}
+    public record CachedSkill(Item iconItem, int maxLevel) {}
+
+    public static class ItemMap extends HashMap<String, Map<String, Integer>> {}
+    public static class CachedItemMap extends HashMap<Item, Map<String, Integer>> {}
+
+    private static final ItemMap defaultItemMap = new ItemMap();
+    static
+    {
+        defaultItemMap.put("minecraft:shield", Map.of("Defense", 8));
+        defaultItemMap.put("minecraft:ender_pearl", Map.of("Magic", 6));
+        defaultItemMap.put("minecraft:bow", Map.of("Attack", 4, "Agility", 4));
+        defaultItemMap.put("minecraft:crossbow", Map.of("Attack", 4, "Agility", 6));
+        defaultItemMap.put("minecraft:iron_sword", Map.of("Attack", 8));
+        defaultItemMap.put("minecraft:iron_axe", Map.of("Attack", 4, "Gathering", 8));
+        defaultItemMap.put("minecraft:iron_pickaxe", Map.of("Mining", 8));
+        defaultItemMap.put("minecraft:iron_shovel", Map.of("Gathering", 8));
+        defaultItemMap.put("minecraft:iron_hoe", Map.of("Farming", 8));
+    }
+
     public static Config CONFIG = new Config(
-            1200,
-            30,
-            1,
+        List.of(
+                new Skill("Attack", "minecraft:iron_sword", 30),
+                new Skill("Defense", "minecraft:iron_chestplate", 30),
+                new Skill("Agility", "minecraft:feather", 30),
+                new Skill("Mining", "minecraft:iron_pickaxe", 30),
+                new Skill("Gathering", "minecraft:iron_axe", 30),
+                new Skill("Farming", "minecraft:iron_hoe", 30),
+                new Skill("Magic", "minecraft:ender_pearl", 30),
+                new Skill("Building", "minecraft:anvil", 30)
+        ),
             2,
-            4,
+            6,
+            true,
             1,
-            400,
-            800,
-            1600,
-            40,
-            50,
-            60,
-            6144,
-            128,
-            81,
-            20,
-            30,
-            40,
-            2,
-            2,
-            0.8,
-            1,
-            0.5,
-            0.3,
-            1,
-            15,
-            1,
-            1,
+            3,
+            true,
             10,
-            true,
-            true,
-            true,
-            false,
-            true,
-            true,
-            true,
-            true,
-            false,
-            true,
-            true,
-            true,
-            List.of(
-                    "minecraft:ender_dragon",
-                    "minecraft:slime",
-                    "minecraft:magma_cube"
-            ),
-            List.of(
-                    "cotv:walker",
-                    "cotv:node"
-            ),
-            List.of(
-            ),
-            List.of(
-            ),
-            List.of(
-            ),
-            2
+            30,
+            2,
+            defaultItemMap
     );
 
 
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
-    static final String CONFIG_PATH = "config" + File.separator + "cotv.json";
+    static final String CONFIG_PATH = "config" + File.separator + MODID + ".json";
 
-    public static final Set<EntityType<?>> INFECTION_BLACKLIST = new HashSet<>();
-    public static final List<EntityType<?>> TIER_1_EVOLUTION = new ArrayList<>();
-    public static final List<EntityType<?>> TIER_2_EVOLUTION = new ArrayList<>();
-    public static final List<EntityType<?>> TIER_3_EVOLUTION = new ArrayList<>();
-    public static final Set<Block> BLOCK_BLACKLIST = new HashSet<>();
-
-
+    public static final HashMap<String, CachedSkill> SKILLS = new HashMap<>();
+    public static CachedItemMap CACHED_ITEMS;
     public static void generateCaches(MinecraftServer server, @Nullable ServerLevel level)
     {
         if (level != null && level.dimension() != OVERWORLD)
             return;
 
-        for (String s : CONFIG.infectionBlacklist)
-            INFECTION_BLACKLIST.add(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(s)));
-
-        TIER_1_EVOLUTION.clear();
-        for (String s : CONFIG.tier1Evolution)
-            TIER_1_EVOLUTION.add(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(s)));
-        TIER_2_EVOLUTION.clear();
-        for (String s : CONFIG.tier2Evolution)
-            TIER_2_EVOLUTION.add(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(s)));
-        TIER_3_EVOLUTION.clear();
-        for (String s : CONFIG.tier3Evolution)
-            TIER_3_EVOLUTION.add(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(s)));
-        BLOCK_BLACKLIST.clear();
-        for (String s : CONFIG.blockConversionBlacklist)
-            BLOCK_BLACKLIST.add(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(s)));
-
+        SKILLS.clear();
+        for (Skill skill : CONFIG.skills)
+            SKILLS.put(skill.name, new CachedSkill(BuiltInRegistries.ITEM.get(ResourceLocation.parse(skill.iconItem)), skill.maxLevel));
+        CACHED_ITEMS = generateItemCache(CONFIG.itemMap);
     }
+
+    public static Config.CachedItemMap generateItemCache(ItemMap itemMap)
+    {
+        final CachedItemMap map = new CachedItemMap();
+        itemMap.forEach((k, v) ->
+        {
+            final Item i = BuiltInRegistries.ITEM.get(ResourceLocation.parse(k));
+            if (i == Items.AIR)
+                return;
+            map.put(i, v);
+        });
+        return map;
+    }
+
 
     static void onLoad()
     {

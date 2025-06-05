@@ -11,10 +11,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "n643064.item_progression.client.Item_progressionClient"
+      "n643064.item_progression.client.Client"
     ],
     "main": [
-      "n643064.item_progression.Item_progression"
+      "n643064.item_progression.Main"
     ]
   },
   "mixins": [

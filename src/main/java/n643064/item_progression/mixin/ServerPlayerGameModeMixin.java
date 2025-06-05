@@ -3,10 +3,14 @@ package n643064.item_progression.mixin;
 import n643064.item_progression.Util;
 import n643064.item_progression.client.Client;
 import n643064.item_progression.client.UsagePopup;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -21,31 +25,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static n643064.item_progression.Config.CONFIG;
 
-@Mixin(MultiPlayerGameMode.class)
-public class MultiPlayerGameModeMixin
+@Environment(EnvType.SERVER)
+@Mixin(ServerPlayerGameMode.class)
+public class ServerPlayerGameModeMixin
 {
-    @Shadow @Final private Minecraft minecraft;
 
-    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
-    private void attack(Player player, Entity entity, CallbackInfo ci)
-    {
-        final ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (Util.clientCheckItemRestricted(stack.getItem()))
-        {
-            Client.POPUP = new UsagePopup(Minecraft.getInstance(), CONFIG.requirementsPopupSeconds());
-            ci.cancel();
-        }
-    }
+    @Shadow @Final protected ServerPlayer player;
 
-    @Inject(method = "startDestroyBlock", at = @At("HEAD"), cancellable = true)
-    private void startDestroyBlock(BlockPos blockPos, Direction direction, CallbackInfoReturnable<Boolean> cir)
+    @Inject(method = "destroyBlock", at = @At("HEAD"), cancellable = true)
+    private void destroyBlock(BlockPos blockPos, CallbackInfoReturnable<Boolean> cir)
     {
-        assert this.minecraft.player != null;
-        final ItemStack stack = this.minecraft.player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (Util.clientCheckItemRestricted(stack.getItem()))
-        {
-            Client.POPUP = new UsagePopup(Minecraft.getInstance(), CONFIG.requirementsPopupSeconds());
+        final ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (Util.serverCheckItemRestricted(player, stack.getItem()))
             cir.setReturnValue(false);
-        }
     }
 }
