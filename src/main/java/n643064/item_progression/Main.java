@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.phys.Vec3;
 
@@ -72,7 +73,13 @@ public class Main implements ModInitializer
             if (livingEntity instanceof ServerPlayer player && equipmentSlot.isArmor())
             {
                 if (Util.serverCheckItemRestricted(player, itemStack1.getItem()))
-                    player.addItem(itemStack1.copyAndClear());
+                {
+                    final ItemStack stack = itemStack1.copyAndClear();
+                    if (!player.addItem(stack))
+                    {
+                        player.spawnAtLocation(stack);
+                    }
+                }
             }
 
         }));

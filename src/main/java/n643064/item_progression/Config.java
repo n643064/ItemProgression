@@ -97,11 +97,6 @@ public record Config(
             defaultItemMap.put("dragonloot:dragon_anvil", Map.of("Building", 24, "Magic", 24));
 
         }
-        // Hang Glider
-        {
-            defaultItemMap.put("hangglider:hang_glider", Map.of("Attack", 12));
-            defaultItemMap.put("hangglider:reinforced_hang_glider", Map.of("Agility", 16));
-        }
         // Extra Shields
         {
             defaultItemMap.put("shields:plated_shield", Map.of("Defense", 8));
@@ -124,9 +119,124 @@ public record Config(
             defaultItemMap.put("farmersdelight:skillet", Map.of("Gathering", 4, "Farming", 4));
             defaultItemMap.put("farmersdelight:cutting_board", Map.of("Gathering", 8));
         }
+        // Underground Worlds
+        {
+            defaultItemMap.put("undergroundworlds:temple_sword", Map.of("Attack", 16));
+            defaultItemMap.put("undergroundworlds:temple_axe", Map.of("Attack", 12, "Gathering", 16));
+            defaultItemMap.put("undergroundworlds:temple_pickaxe", Map.of("Mining", 16));
+            defaultItemMap.put("undergroundworlds:temple_shovel", Map.of("Gathering", 16));
+            defaultItemMap.put("undergroundworlds:temple_hoe", Map.of("Farming", 16));
+            defaultItemMap.put("undergroundworlds:freezing_sword", Map.of("Attack", 8, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:freezing_axe", Map.of("Attack", 4, "Gathering", 8, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:freezing_pickaxe", Map.of("Mining", 8, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:freezing_shovel", Map.of("Gathering", 8, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:freezing_hoe", Map.of("Farming", 8, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:blade_of_the_jungle", Map.of("Attack", 16, "Magic", 8));
+            defaultItemMap.put("undergroundworlds:axe_of_regrowth", Map.of("Attack", 4, "Gathering", 8, "Magic", 8));
+        }
+        // Ice and Fire
+        {
+            defaultItemMap.put("iceandfire:tide_trident", Map.of("Attack", 20, "Agility", 16, "Magic", 12));
+            defaultItemMap.put("iceandfire:dread_knight_sword", Map.of("Attack", 30));
+            defaultItemMap.put("iceandfire:dread_queen_sword", Map.of("Attack", 16));
+            defaultItemMap.put("iceandfire:ghost_sword", Map.of("Attack", 24, "Magic", 24));
+            
+            defaultItemMap.put("iceandfire:copper_sword", Map.of("Attack", 6));
+            defaultItemMap.put("iceandfire:copper_axe", Map.of("Attack", 4, "Gathering", 6));
+            defaultItemMap.put("iceandfire:copper_pickaxe", Map.of("Mining", 6));
+            defaultItemMap.put("iceandfire:copper_shovel", Map.of("Gathering", 6));
+            defaultItemMap.put("iceandfire:copper_hoe", Map.of("Farming", 6));
+            defaultItemMap.put("iceandfire:armor_copper_metal_helmet", Map.of("Defense", 6));
+            defaultItemMap.put("iceandfire:armor_copper_metal_chestplate", Map.of("Defense", 6));
+            defaultItemMap.put("iceandfire:armor_copper_metal_leggings", Map.of("Defense", 6));
+            defaultItemMap.put("iceandfire:armor_copper_metal_boots", Map.of("Defense", 6));
 
-        // TODO: Aether, Underground biomes
+            defaultItemMap.put("iceandfire:silver_sword", Map.of("Attack", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:silver_axe", Map.of("Attack", 4, "Gathering", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:silver_pickaxe", Map.of("Mining", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:silver_shovel", Map.of("Gathering", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:silver_hoe", Map.of("Farming", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:armor_silver_metal_helmet", Map.of("Defense", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:armor_silver_metal_chestplate", Map.of("Defense", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:armor_silver_metal_leggings", Map.of("Defense", 6, "Magic", 6));
+            defaultItemMap.put("iceandfire:armor_silver_metal_boots", Map.of("Defense", 6, "Magic", 6));
 
+            defaultItemMap.put("iceandfire:dragonbone_sword_fire", Map.of("Attack", 24));
+            defaultItemMap.put("iceandfire:dragonbone_sword_ice", Map.of("Attack", 24));
+            defaultItemMap.put("iceandfire:dragonbone_sword_lightning", Map.of("Attack", 24));
+            defaultItemMap.put("iceandfire:dragonbone_sword", Map.of("Attack", 24));
+            defaultItemMap.put("iceandfire:dragonbone_axe", Map.of("Attack", 24, "Gathering", 24));
+            defaultItemMap.put("iceandfire:dragonbone_pickaxe", Map.of("Mining", 24));
+            defaultItemMap.put("iceandfire:dragonbone_shovel", Map.of("Gathering", 24));
+            defaultItemMap.put("iceandfire:dragonbone_hoe", Map.of("Farming", 24));
+
+            defaultItemMap.put("iceandfire:deathworm_yellow_helmet", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_yellow_chestplate", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_yellow_leggings", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_yellow_boots", Map.of("Defense", 8));
+
+            defaultItemMap.put("iceandfire:deathworm_red_helmet", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_red_chestplate", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_red_leggings", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_red_boots", Map.of("Defense", 8));
+
+            defaultItemMap.put("iceandfire:deathworm_white_helmet", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_white_chestplate", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_white_leggings", Map.of("Defense", 8));
+            defaultItemMap.put("iceandfire:deathworm_white_boots", Map.of("Defense", 8));
+
+            defaultItemMap.put("iceandfire:myrmex_desert_sword", Map.of("Attack", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_sword_venom", Map.of("Attack", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_axe", Map.of("Attack", 10, "Gathering", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_pickaxe", Map.of("Mining", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_shovel", Map.of("Gathering", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_hoe", Map.of("Farming", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_helmet", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_chestplate", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_leggings", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_desert_boots", Map.of("Defense", 12));
+
+            defaultItemMap.put("iceandfire:myrmex_jungle_sword", Map.of("Attack", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_sword_venom", Map.of("Attack", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_axe", Map.of("Attack", 10, "Gathering", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_pickaxe", Map.of("Mining", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_shovel", Map.of("Gathering", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_hoe", Map.of("Farming", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_helmet", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_chestplate", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_leggings", Map.of("Defense", 12));
+            defaultItemMap.put("iceandfire:myrmex_jungle_boots", Map.of("Defense", 12));
+
+            defaultItemMap.put("iceandfire:dragonsteel_fire_helmet", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_chestplate", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_leggings", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_boots", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_sword", Map.of("Attack", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_axe", Map.of("Attack", 26, "Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_pickaxe", Map.of("Mining", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_shovel", Map.of("Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_fire_hoe", Map.of("Farming", 30));
+
+            defaultItemMap.put("iceandfire:dragonsteel_ice_helmet", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_chestplate", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_leggings", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_boots", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_sword", Map.of("Attack", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_axe", Map.of("Attack", 26, "Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_pickaxe", Map.of("Mining", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_shovel", Map.of("Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_ice_hoe", Map.of("Farming", 30));
+
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_helmet", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_chestplate", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_leggings", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_boots", Map.of("Defense", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_sword", Map.of("Attack", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_axe", Map.of("Attack", 26, "Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_pickaxe", Map.of("Mining", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_shovel", Map.of("Gathering", 30));
+            defaultItemMap.put("iceandfire:dragonsteel_lightning_hoe", Map.of("Farming", 30));
+        }
         // Vanilla
 
         // Magic
